@@ -1,14 +1,14 @@
 --t5
-SELECT city from customers;
-SELECT id from customers;
+SELECT city FROM customers;
+SELECT id FROM customers;
 
 --t6
-SELECT name,zip from customers;
-SELECT * from customers;
+SELECT name,zip FROM customers;
+SELECT * FROM customers;
 
 --t7
-SELECT state from customers;
-SELECT DISTINCT state from customers;
+SELECT state FROM customers;
+SELECT DISTINCT state FROM customers;
 SELECT id,name FROM customers LIMIT 5;
 SELECT id,name FROM customers LIMIT 5,10;
 
