@@ -76,3 +76,44 @@ SELECT COUNT(*) AS item_count, MAX(cost) AS max_cost, AVG(cost) AS avg_cost FROM
 SELECT seller_id, COUNT(*) AS item_count FROM items WHERE seller_id=1;
 SELECT seller_id, COUNT(*) AS item_count FROM items GROUP BY seller_id;
 SELECT seller_id, COUNT(*) AS item_count FROM items GROUP BY seller_id HAVING COUNT(*)>3 ORDER BY item_count DESC;
+
+--20
+SELECT name,cost FROM items WHERE cost>(SELECT AVG(cost) FROM items) GROUP BY cost DESC;
+
+--t21
+SELECT name, MIN(cost) FROM items WHERE name LIKE '% boxes of frogs' AND seller_id IN 
+(SELECT seller_id FROM items WHERE name LIKE '% boxes of frogs');
+
+--t22
+SELECT customers.id, customers.name, items.name, items.cost FROM customers, items
+WHERE customers.id=items.seller_id
+ORDER BY customers.id
+
+--t23
+SELECT i.seller_id, i.name, c.id
+FROM items AS i, customers AS c 
+WHERE i.id = c.id
+
+SELECT customers.name, items.name FROM customers RIGHT OUTER JOIN items ON customers.id=items.seller_id
+
+--t24
+SELECT name, cost, bids FROM items WHERE bids>190
+UNION ALL
+SELECT name, cost, bids FROM items WHERE cost>1000
+
+--t25
+SELECT name, cost FROM items WHERE MATCH(name) AGAINST('baby' IN BOOLEAN MODE);
+SELECT name, cost FROM items WHERE MATCH(name) AGAINST('+baby -coat' IN BOOLEAN MODE);
+
+--t26
+INSERT INTO items VALUES('101', 'bacon strips', '9.95', '1', '0');
+INSERT INTO items(id,name,cost,seller_id,bids)  VALUES('102', 'fish n chips', '7.99', '1', '0');
+INSERT INTO items(id,cost,name)  VALUES('103', '7.77', 'beef on a stick')
+
+--t27
+INSERT INTO items(id,name,cost,seller_id,bids)  VALUES
+('104', 'beef chops', '7.99', '1', '0'),
+('105', 'jelly pockets', '4.56', '1', '0'),
+('106', 'sack of ham', '9.95', '1', '0');
+--INSERT INTO items(id,name,cost,seller_id,bids) SELECT id,name,cost,seller_id,bids FROM faketable 
+
