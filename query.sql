@@ -117,3 +117,36 @@ INSERT INTO items(id,name,cost,seller_id,bids)  VALUES
 ('106', 'sack of ham', '9.95', '1', '0');
 --INSERT INTO items(id,name,cost,seller_id,bids) SELECT id,name,cost,seller_id,bids FROM faketable 
 
+--t28
+UPDATE items SET name='puddinghammock' WHERE id=106;
+UPDATE items SET name='frog paste', bids=66 WHERE id=106;
+DELETE FROM items WHERE id=104;
+
+--t29
+CREATE TABLE users(
+id int,
+username varchar(30),
+password varchar(20),
+PRIMARY KEY(id)
+)
+
+--t30
+CREATE TABLE bacon(
+id int NOT NULL AUTO_INCREMENT,
+username varchar(30) NOT NULL ,
+password varchar(20) NOT NULL ,
+PRIMARY KEY(id)
+)
+
+--t31
+ALTER TABLE bacon ADD samplecolumn varchar(10)
+ALTER TABLE bacon DROP COLUMN samplecolumn
+DROP TABLE bacon
+RENAME TABLE bacon TO new_bacon
+
+--t32
+CREATE VIEW mostbids AS
+SELECT id, name, bids FROM items ORDER BY bids DESC LIMIT 10
+
+CREATE VIEW mailing AS
+SELECT Concat(city, ', ' ,zip) AS address FROM customers
